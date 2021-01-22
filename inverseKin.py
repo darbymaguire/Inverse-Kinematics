@@ -1,4 +1,7 @@
 import numpy as np
+from arm_controller import ArmController
+
+ac = ArmController()
 
 print("what would you like your X coordinate to be? ")
 xCoord = input()
@@ -21,10 +24,13 @@ T = [[(np.cos(yaw)*np.cos(roll)), ((-np.sin(yaw)*np.cos(pitch))+(np.cos(yaw)*np.
     [(-np.sin(roll)), (np.cos(roll)*np.sin(pitch)), (np.cos(roll)*np.cos(pitch)), zCoord],
     [0, 0, 0, 1]]
 
-c1 = (xCoord - l2*T[0,0])/l1
-s1 = (yCoord - l2*T[1,0])/l1
+c1 = (xCoord - l2*T[0][0])/l1
+s1 = (yCoord - l2*T[1][0])/l1
 
 angle1 = np.arctan2(s1, c1)
-angle2 = np.arctan2(T[1,0], T[0,0]) - angle1
+angle2 = np.arctan2(T[1][0], T[0][0]) - angle1
 
 print("The angle of joint 1 is " + str(yaw) + ", the angle of joint 2 is " + str(angle1) + ", and the angle of joint 4 is " + str(angle2) + ".")
+
+ac.set_joints([yaw, angle1, 0, angle2])
+print(ac.get_pose())
