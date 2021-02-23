@@ -1,5 +1,6 @@
 from numpy import array
 from math import cos, sin, atan2, asin
+from arm_controller import ArmController
 
 # get position and roll, pitch, and yaw
 # create T table with info
@@ -44,3 +45,5 @@ if __name__ == "__main__":
     # do forward kinematics to check if the angles are reasonable
 
     print("Solution joint angles 1:{}, 2:{}, 3:{}".format(theta1, theta2, theta3))
+    
+    ac = set_joints([theta1, theta2, 0, theta3])
